@@ -1,0 +1,55 @@
+{#/resources/views/tasks.njk#}
+
+{% extends 'master' %}
+
+{% block content %}
+
+    <div class="mb4 bb pb4 pt3 bw1 b--black-10">
+        <h3 class="f6 ttu tracked mb3">Tasks</h3>
+        <div class="cf">
+            <dl class="fl fn-l w-50 dib-l w-auto-l lh-title mr5-l">
+            <dd class="f6 fw4 ml0">Active</dd>
+            <dd class="f3 fw6 ml0">{{  stats.active }}</dd>
+            </dl>
+            <dl class="fl fn-l w-50 dib-l w-auto-l lh-title mr5-l">
+            <dd class="f6 fw4 ml0">Completed</dd>
+            <dd class="f3 fw6 ml0">{{  stats.completed }}</dd>
+            </dl>
+            <dl class="fl fn-l w-50 dib-l w-auto-l lh-title mr5-l">
+            <dd class="f6 fw4 ml0">All</dd>
+            <dd class="f3 fw6 ml0">{{  stats.allTasks }}</dd>
+            </dl>
+        </div>
+    </div>
+
+
+    <!-- output tasks -->
+    {% for task in tasks %}
+    <article class="dt w-100 bb b--black-05 pb2 mt2 black-70 {% if task.completed %}strike{% endif %}"> 
+        <div class="dtc v-top">
+            <h1 class="f6 f5-ns fw6 lh-title mt0">{{ task.name | capitalize }}</h1>
+            <time class="f6 ttu tracked gray">{{ task.updated_at }}</time>
+            <p class="f6 fw4 mt0 mb0 lh-copy measure">{{task.note}}</p>
+            </div>
+            <div class="dtc w-20 v-top">
+              {{ form.open({ action: 'TasksController.update', class: 'w-100 tr' }) }}
+                {{ csrfField }}
+                 
+                {% if task.completed %}
+                     <button class="f6 ph2 button-reset bg-white ba b--black-10 dim pointer pv1 black-60" type="submit">Re-Task</button>
+                     {{ form.hidden('completed', '0') }}
+                {% else %}
+                    <button class="f6 ph2 button-reset bg-white ba b--black-10 dim pointer pv1 black-60" type="submit">Complete</button>
+                    {{ form.hidden('completed', '1') }}
+                {% endif %}
+                {{ form.hidden('id', task.id) }}
+            {{ form.close() }}
+        </div>
+    </article>
+    {% else %}
+        <div class="flex items-center justify-center pa4 bg-washed-green dark-green">
+            <span class="lh-title ml3 b">&check; All Tasks Completed!</span>
+        </div>
+    {% endfor %}
+
+{% endblock %}

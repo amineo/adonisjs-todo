@@ -1,0 +1,95 @@
+{#/resources/views/master.njk#}
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+  <title>AdonisJs - Todo Notes</title>
+
+  <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,200,300,600,700,900' rel='stylesheet' type='text/css'>
+  <link rel="icon" href="/assets/favicon.png" type="image/x-icon">
+
+  <link rel="stylesheet" href="https://unpkg.com/tachyons@4.6.1/css/tachyons.min.css"/>
+  <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+  <main>
+    <section>
+
+      <article class="cf ph3 ph5-ns pv5">
+        <header class="fn fl-ns w-50-ns pr4-ns">
+          <h1 class="f2 lh-title fw9 mb3 mt0 pt3 bt bw2">
+            AdonisJS Todo Notes
+          </h1>
+          <h2 class="f4 mid-gray lh-title">
+            A simple example using AdonisJS
+          </h2>
+
+      
+            <div class="black-80 mv5 shadow-2">
+
+            {% if old('errors') %}
+              <div class="pa4 bg-washed-red">
+                {% for error in old('errors') %}
+                  <li class="b"> {{ error.message }} </li>
+                {% endfor %}
+              </div>
+            {% endif %}
+
+              {{ form.open({ action: 'TasksController.store'}) }}
+
+                {{ csrfField }}
+
+              <div class="measure pa4 pb2">
+                <label for="task" class="f6 b db mb2">Task</label>
+                <input type="text" name="name" class="input-reset ba b--black-20 pa2 mb2 db w-100">
+                <small class="f6 black-60">What needs to be done?</small>
+              </div>
+              <div class="measure ph4 pv3">
+                <label for="note" class="f6 b db mb2">Notes <span class="normal black-60">(optional)</span></label>
+                <textarea name="note" class="db border-box hover-black w-100 measure ba b--black-20 pa2 br2 mb2" aria-describedby="comment-desc"></textarea>
+                <small class="f6 black-60">Additional notes to help you complete your task.</small>
+              </div>
+              <div class="ph4 pv3 bg-near-white">
+                {{ form.button('Add Task', 'submit', { class: 'f6 fw6 bg-white link dim br-pill ba ph3 pv2 dib green' }) }}
+              </div>
+              {{ form.close() }}
+            </div>
+                <footer class="pv4 ph3 ph5-ns tc mt6">
+            <a class="link dim gray db h2 mr3 pa2" href="https://anthonymineo.com">AnthonyMineo.com</a>
+            <a class="link dim gray dib h2 w2 br-100 mr3 pa2 bg-near-white ba b--black-10" href="https://twitter.com/Mineo27">
+                <svg data-icon="twitter" viewBox="0 0 32 32" style="fill:currentcolor">
+                <title>twitter</title>
+                <path d="M2 4 C6 8 10 12 15 11 A6 6 0 0 1 22 4 A6 6 0 0 1 26 6 A8 8 0 0 0 31 4 A8 8 0 0 1 28 8 A8 8 0 0 0 32 7 A8 8 0 0 1 28 11 A18 18 0 0 1 10 30 A18 18 0 0 1 0 27 A12 12 0 0 0 8 24 A8 8 0 0 1 3 20 A8 8 0 0 0 6 19.5 A8 8 0 0 1 0 12 A8 8 0 0 0 3 13 A8 8 0 0 1 2 4"></path>
+                </svg>
+            </a>
+            <a class="link dim gray dib br-100 h2 w2 mr3 pa2 bg-near-white ba b--black-10" href="https://github.com/amineo">
+                <svg data-icon="github" viewBox="0 0 32 32" style="fill:currentcolor">
+                <title>github</title>
+                <path d="M0 18 C0 12 3 10 3 9 C2.5 7 2.5 4 3 3 C6 3 9 5 10 6 C12 5 14 5 16 5 C18 5 20 5 22 6 C23 5 26 3 29 3 C29.5 4 29.5 7 29 9 C29 10 32 12 32 18 C32 25 30 30 16 30 C2 30 0 25 0 18 M3 20 C3 24 4 28 16 28 C28 28 29 24 29 20 C29 16 28 14 16 14 C4 14 3 16 3 20 M8 21 A1.5 2.5 0 0 0 13 21 A1.5 2.5 0 0 0 8 21 M24 21 A1.5 2.5 0 0 0 19 21 A1.5 2.5 0 0 0 24 21 z"></path>
+                </svg>
+            </a>
+            <a class="link dim gray dib br-100 h2 w2 mr3 pa2 bg-near-white ba b--black-10" href="https://dribbble.com/Mineo">
+                <svg data-icon="dribbble" viewBox="0 0 32 32" style="fill:currentcolor">
+                <title>dribbble</title>
+                <path d="M16 0 A16 16 0 0 0 0 16 A16 16 0 0 0 16 32 A16 16 0 0 0 32 16 A16 16 0 0 0 16 0 M5 11.5 A12 12 0 0 1 11 5 A46 46 0 0 1 13.5 9.25 A46 46 0 0 1 5 11.5 M15 4 A12 12 0 0 1 21.5 5.25 A46 46 0 0 1 17 7.75 A50 50 0 0 0 15 4 M4 16 A50 50 0 0 0 15 13 A46 46 0 0 1 16 15.5 A26 26 0 0 0 6 22.5 A12 12 0 0 1 4 16 M18.5 11.5 A50 50 0 0 0 25 8 A12 12 0 0 1 28 13.75 A26 26 0 0 0 19.75 14.5 A50 50 0 0 0 18.5 11.5 M17 19.5 A46 46 0 0 1 18 28 A12 12 0 0 1 8.75 25.5 A22 22 0 0 1 17 19.5 M20.75 18.25 A22 22 0 0 1 28 17.75 A12 12 0 0 1 22 26.5 A50 50 0 0 0 20.75 18.25"></path>
+                </svg>
+            </a>
+        </footer>
+        </header>
+        <div class="fn fl-ns w-50-ns">
+
+            {% block content %}{% endblock %}
+
+        </div>
+      </article>
+
+
+    </section>
+
+
+  </main>
+</body>
+</html>
